@@ -49,6 +49,7 @@ jobs:
             VERSION="${TAG#v}"
           elif [ -n "${{ inputs.version }}" ]; then
             VERSION="${{ inputs.version }}"
+            VERSION="${VERSION#v}"
             TAG="v${VERSION}"
           else
             VERSION="${CARGO_VERSION}"
