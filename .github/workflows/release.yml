@@ -17,6 +17,8 @@ concurrency:
 
 env:
   CARGO_TERM_COLOR: always
+  # Use Node 24 for JS actions before the June 2026 default switch (see GitHub changelog).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: write
@@ -29,7 +31,7 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       tag: ${{ steps.version.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -106,7 +108,7 @@ jobs:
             target: x86_64-apple-darwin
             asset_name: trusted-macos-x86_64
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: dtolnay/rust-toolchain@stable
         with:
@@ -136,7 +138,7 @@ jobs:
             (cd dist && shasum -a 256 "${ASSET_NAME}.tar.gz" | awk '{print $1 "  " $2}' > "${ASSET_NAME}.tar.gz.sha256")
           fi
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.asset_name }}
           path: dist/${{ matrix.asset_name }}.*
@@ -147,10 +149,10 @@ jobs:
     needs: [validate, build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: trusted-*
           merge-multiple: true
@@ -164,7 +166,7 @@ jobs:
           ls -la release-assets/
 
       - name: Create draft release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ needs.validate.outputs.tag }}
           name: trusted ${{ needs.validate.outputs.version }}
