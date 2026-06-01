@@ -1,6 +1,8 @@
-# trusted
+# 🛡️ Trusted
 
-Install-time package safety guard. Wraps common package managers via PATH shims, checks resolved packages against [OSV](https://osv.dev), enforces a minimum release age (default 7 days), and blocks or adjusts unsafe installs.
+**Trusted** is the lightweight safety net that ensures your app only runs what is safe. No blind faith and no complex bloat - Trusted is instant, bulletproof validation that stops known vulnerable and malicious packages before they touch your codebase. It checks resolved packages against [OSV](https://osv.dev), enforces a minimum release age (default 7 days), and blocks or adjusts unsafe installs.
+
+Trused wraps common package managers, so you (and your agents!) don't need to run any additional commands - simply install as you always do, and _trusted_ works in the background for you.
 
 ## Supported package managers
 
