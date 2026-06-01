@@ -1,6 +1,6 @@
 # 🛡️ Trusted
 
-🤖+🧑‍💻 _**Trusted protect both you and you agents!**_
+🤖+🧑‍💻 _**Trusted protects both you and you agents!**_
 
 **Trusted** is the lightweight safety net that ensures your app only runs what is safe. No blind faith and no complex bloat - Trusted is instant, bulletproof validation that stops known vulnerable and malicious packages before they touch your codebase. It checks resolved packages against [OSV](https://osv.dev), enforces a minimum release age (default 7 days), and blocks or adjusts unsafe installs.
 
