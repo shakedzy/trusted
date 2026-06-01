@@ -156,12 +156,21 @@ jobs:
         with:
           pattern: trusted-*
           merge-multiple: true
+          path: dist
 
       - name: Collect release assets
         run: |
           set -euo pipefail
           mkdir -p release-assets
-          find dist -type f \( -name '*.tar.gz' -o -name '*.sha256' \) -exec cp -t release-assets {} +
+          # upload-artifact uses dist/ as artifact root; merged downloads may also land at workspace root
+          mapfile -d '' archives < <(find . \( -path ./release-assets -o -path ./.git \) -prune -o \
+            -type f \( -name 'trusted-*.tar.gz' -o -name 'trusted-*.tar.gz.sha256' \) -print0)
+          if [ "${#archives[@]}" -eq 0 ]; then
+            echo "No release archives found after artifact download." >&2
+            find . -maxdepth 3 -type f >&2 || true
+            exit 1
+          fi
+          cp -t release-assets "${archives[@]}"
           (cd release-assets && sha256sum *.tar.gz > SHA256SUMS)
           ls -la release-assets/
 
