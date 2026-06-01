@@ -48,17 +48,14 @@ pub fn discover(root: &Path) -> Result<Vec<ScanSource>> {
                 }
             }
         }
-        if path.parent().is_some_and(|p| {
-            p.file_name().is_some_and(|n| n == "requirements")
-        }) && file_name.ends_with(".txt")
+        if path
+            .parent()
+            .is_some_and(|p| p.file_name().is_some_and(|n| n == "requirements"))
+            && file_name.ends_with(".txt")
         {
             if let Ok(packages) = parse_requirements_txt(path) {
                 if !packages.is_empty() {
-                    sources.push(ScanSource::new(
-                        path,
-                        "pip (requirements/*.txt)",
-                        packages,
-                    ));
+                    sources.push(ScanSource::new(path, "pip (requirements/*.txt)", packages));
                 }
             }
         }
@@ -80,12 +77,7 @@ fn manager_label(lock_name: &str) -> &'static str {
     }
 }
 
-fn walk(
-    _root: &Path,
-    dir: &Path,
-    depth: usize,
-    visit_file: &mut dyn FnMut(&Path),
-) {
+fn walk(_root: &Path, dir: &Path, depth: usize, visit_file: &mut dyn FnMut(&Path)) {
     if depth > MAX_DEPTH {
         return;
     }

@@ -75,7 +75,8 @@ pub fn parse_pnpm_lock(path: &Path) -> Result<Vec<PackageRef>> {
         if let Some(key) = line.strip_suffix(':') {
             if key.contains('@') && !key.starts_with("importers") && !key.starts_with('/') {
                 if let Some((name, version)) = key.rsplit_once('@') {
-                    if !version.is_empty() && version.chars().next().is_some_and(|c| c.is_ascii_digit())
+                    if !version.is_empty()
+                        && version.chars().next().is_some_and(|c| c.is_ascii_digit())
                     {
                         packages.push(PackageRef {
                             ecosystem: Ecosystem::Npm,
@@ -274,8 +275,7 @@ fn dedupe(mut packages: Vec<PackageRef>) -> Vec<PackageRef> {
             .then(a.name.cmp(&b.name))
             .then(a.version.cmp(&b.version))
     });
-    packages.dedup_by(|a, b| {
-        a.ecosystem == b.ecosystem && a.name == b.name && a.version == b.version
-    });
+    packages
+        .dedup_by(|a, b| a.ecosystem == b.ecosystem && a.name == b.name && a.version == b.version);
     packages
 }

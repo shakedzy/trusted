@@ -1,6 +1,6 @@
 use trusted_core::policy::{Violation, ViolationKind};
-use trusted_core::{format_audit_failed, AuditKind};
 use trusted_core::types::{Ecosystem, PackageRef};
+use trusted_core::{format_audit_failed, AuditKind};
 
 #[test]
 fn format_violation_message() {

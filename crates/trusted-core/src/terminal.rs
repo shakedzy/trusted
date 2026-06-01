@@ -164,12 +164,7 @@ fn print_scan_violations(root: &std::path::Path, scan_violations: &[ScanViolatio
                             .join(", "),
                     )
                 };
-                write_one_violation(
-                    w,
-                    i + 1,
-                    &sv.violation,
-                    declared.as_deref(),
-                )?;
+                write_one_violation(w, i + 1, &sv.violation, declared.as_deref())?;
             }
             writeln!(
                 w,
@@ -371,11 +366,7 @@ pub fn print_install_ask_prompt(package_manager: Option<&str>, violations: &[Vio
 pub fn print_install_declined() {
     if stderr_use_color() {
         write_block(|w| {
-            writeln!(
-                w,
-                "{}",
-                "  Aborted — install still blocked.".red().bold()
-            )?;
+            writeln!(w, "{}", "  Aborted — install still blocked.".red().bold())?;
             Ok(())
         });
     } else {
@@ -449,19 +440,22 @@ pub fn print_stale_shim_warning(current: &std::path::Path, shim_target: &std::pa
                     .yellow()
                     .bold()
             )?;
-            writeln!(w, "    shims -> {}", shim_target.display().to_string().dimmed())?;
-            writeln!(w, "    you ran -> {}", current.display().to_string().dimmed())?;
             writeln!(
                 w,
-                "{}",
-                "    Fix: re-run setup from the binary you want, e.g."
-                    .white()
+                "    shims -> {}",
+                shim_target.display().to_string().dimmed()
+            )?;
+            writeln!(
+                w,
+                "    you ran -> {}",
+                current.display().to_string().dimmed()
             )?;
             writeln!(
                 w,
                 "{}",
-                "      ./target/release/trusted setup".cyan()
+                "    Fix: re-run setup from the binary you want, e.g.".white()
             )?;
+            writeln!(w, "{}", "      ./target/release/trusted setup".cyan())?;
             writeln!(
                 w,
                 "{}",
@@ -494,11 +488,7 @@ pub fn print_scan_results(report: &ScanReport) {
         write_block(|w| {
             writeln!(w)?;
             writeln!(w, "{}", BAR.cyan().bold())?;
-            writeln!(
-                w,
-                "{}",
-                "  TRUSTED REPOSITORY SCAN".cyan().bold()
-            )?;
+            writeln!(w, "{}", "  TRUSTED REPOSITORY SCAN".cyan().bold())?;
             writeln!(w, "{}", BAR.cyan().bold())?;
             writeln!(w, "  Root: {}", root.display().to_string().white())?;
             writeln!(w)?;
@@ -513,8 +503,7 @@ pub fn print_scan_results(report: &ScanReport) {
                 writeln!(
                     w,
                     "{}",
-                    "  Looked for: package-lock.json, pnpm-lock.yaml, yarn.lock, uv.lock,"
-                        .dimmed()
+                    "  Looked for: package-lock.json, pnpm-lock.yaml, yarn.lock, uv.lock,".dimmed()
                 )?;
                 writeln!(
                     w,
@@ -587,7 +576,9 @@ pub fn print_check_would_repin(pins: &[(crate::types::PackageRef, String)]) {
             writeln!(
                 w,
                 "{}",
-                "  CHECK: WOULD SUGGEST SAFER VERSIONS (closest_safe)".yellow().bold()
+                "  CHECK: WOULD SUGGEST SAFER VERSIONS (closest_safe)"
+                    .yellow()
+                    .bold()
             )?;
             writeln!(w, "{}", BAR.yellow().bold())?;
             writeln!(

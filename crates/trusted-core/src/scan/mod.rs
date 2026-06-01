@@ -28,9 +28,7 @@ pub struct ScanViolation {
 }
 
 pub async fn scan_repo(root: &Path) -> Result<ScanReport> {
-    let root = root
-        .canonicalize()
-        .unwrap_or_else(|_| root.to_path_buf());
+    let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
     let sources = discover(&root)?;
     let (packages, pkg_sources) = merge_sources(&sources);
 
@@ -94,12 +92,7 @@ fn merge_sources(sources: &[ScanSource]) -> (Vec<PackageRef>, HashMap<String, Ve
 }
 
 fn package_key(pkg: &PackageRef) -> String {
-    format!(
-        "{}:{}@{}",
-        pkg.ecosystem.osv_name(),
-        pkg.name,
-        pkg.version
-    )
+    format!("{}:{}@{}", pkg.ecosystem.osv_name(), pkg.name, pkg.version)
 }
 
 pub fn display_path(root: &Path, path: &Path) -> String {

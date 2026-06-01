@@ -4,13 +4,13 @@ use std::io::{self, Write};
 use crate::adapter::Tool;
 use crate::exec::{exec_real, find_real_binary};
 use anyhow::{bail, Result};
-use trusted_core::config::Config;
 use std::path::Path;
+use trusted_core::config::Config;
 
 use trusted_core::policy::{PolicyEngine, PolicyOutcome};
 use trusted_core::{
-    print_check_failed, print_check_ok, print_install_ask_prompt,
-    print_install_blocked, print_install_declined, print_repin, print_scan_results, scan_repo,
+    print_check_failed, print_check_ok, print_install_ask_prompt, print_install_blocked,
+    print_install_declined, print_repin, print_scan_results, scan_repo,
 };
 
 pub async fn run_shim(tool: Tool, args: Vec<OsString>) -> Result<i32> {

@@ -53,7 +53,9 @@ version = "2.31.0"
     )
     .unwrap();
     let pkgs = parse_uv_lock(&path).unwrap();
-    assert!(pkgs.iter().any(|p| p.name == "requests" && p.version == "2.31.0"));
+    assert!(pkgs
+        .iter()
+        .any(|p| p.name == "requests" && p.version == "2.31.0"));
 }
 
 #[test]

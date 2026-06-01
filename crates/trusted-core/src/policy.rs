@@ -7,8 +7,8 @@ use futures::stream::{self, StreamExt};
 use semver::Version;
 
 use crate::config::Config;
-use crate::progress::{print_audit_progress, print_audit_progress_done};
 use crate::osv::{OsvCheckResult, OsvClient};
+use crate::progress::{print_audit_progress, print_audit_progress_done};
 use crate::registry::RegistryClient;
 use crate::types::{ClosestSafeNoCandidate, PackageRef, UnsafeAction};
 
@@ -92,8 +92,7 @@ impl PolicyEngine {
                     .map(|pkg| {
                         let age_done = age_done.clone();
                         async move {
-                            let result =
-                                Self::check_release_age(registry, min_days, &pkg).await;
+                            let result = Self::check_release_age(registry, min_days, &pkg).await;
                             let n = age_base + age_done.fetch_add(1, Ordering::Relaxed) + 1;
                             print_audit_progress(n, total, "Checking release dates…");
                             result
@@ -173,12 +172,8 @@ impl PolicyEngine {
             }));
         }
         if self.config.min_release_age_days > 0 {
-            return Self::check_release_age(
-                &self.registry,
-                self.config.min_release_age_days,
-                pkg,
-            )
-            .await;
+            return Self::check_release_age(&self.registry, self.config.min_release_age_days, pkg)
+                .await;
         }
         Ok(None)
     }

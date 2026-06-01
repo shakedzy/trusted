@@ -29,10 +29,7 @@ pub fn print_audit_progress(done: usize, total: usize, phase: &str) {
         return;
     }
     let mut err = io::stderr();
-    let _ = write!(
-        err,
-        "\rtrusted: {done}/{total} packages ({pct}%) — {phase}"
-    );
+    let _ = write!(err, "\rtrusted: {done}/{total} packages ({pct}%) — {phase}");
     let _ = err.flush();
 }
 

@@ -210,13 +210,11 @@ async fn cmd_doctor() -> Result<()> {
 }
 
 fn binary_has_audit_output(path: &std::path::Path) -> bool {
-    std::fs::read(path)
-        .ok()
-        .is_some_and(|bytes| {
-            bytes
-                .windows(b"CHECK FOUND POLICY VIOLATIONS".len())
-                .any(|w| w == b"CHECK FOUND POLICY VIOLATIONS")
-        })
+    std::fs::read(path).ok().is_some_and(|bytes| {
+        bytes
+            .windows(b"CHECK FOUND POLICY VIOLATIONS".len())
+            .any(|w| w == b"CHECK FOUND POLICY VIOLATIONS")
+    })
 }
 
 fn which(tool: &str, _shims: &PathBuf) -> bool {
