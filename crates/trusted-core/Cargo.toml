@@ -1,0 +1,26 @@
+[package]
+name = "trusted-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Core policy, OSV, and registry clients for trusted"
+
+[dependencies]
+anyhow.workspace = true
+chrono.workspace = true
+dirs.workspace = true
+reqwest.workspace = true
+semver.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+toml.workspace = true
+tracing.workspace = true
+urlencoding.workspace = true
+owo-colors.workspace = true
+futures.workspace = true
+
+[dev-dependencies]
+tempfile = "3"
+wiremock = "0.6"

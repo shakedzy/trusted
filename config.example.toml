@@ -1,0 +1,14 @@
+min_release_age_days = 7
+unsafe_action = "block" # block | ask | closest_safe
+closest_safe_no_candidate = "block" # block | ask
+
+[osv]
+# api_key = "your-osv-api-key"
+
+[cache]
+ttl_seconds = 3600
+
+# [[allow]]
+# ecosystem = "PyPI"
+# package = "example"
+# version = "1.0.0"
